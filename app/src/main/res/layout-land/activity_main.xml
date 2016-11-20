@@ -10,25 +10,15 @@
     android:background="@drawable/felt"
     tools:context="com.tbd.memory_game.MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="      Number of Cards"
-        android:ems="10"
-        android:id="@+id/cardNumberUserInp"
-        android:layout_below="@+id/pleaseEnterText"
-        android:layout_centerHorizontal="true"
-        android:selectAllOnFocus="false" />
-
     <TextView
         android:text="Please enter your desired number of cards"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:id="@+id/pleaseEnterText"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/welcomeText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp" />
 
     <TextView
         android:text="Welcome to Concentration"
@@ -36,9 +26,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/welcomeText"
         android:textColor="#000"
+        android:layout_marginTop="31dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Start"
@@ -52,8 +42,20 @@
         android:text="HighScores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
         android:id="@+id/highScoresButton"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="      Number of Cards"
+        android:ems="10"
+        android:id="@+id/cardNumberUserInp"
+        android:selectAllOnFocus="false"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/pleaseEnterText"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
