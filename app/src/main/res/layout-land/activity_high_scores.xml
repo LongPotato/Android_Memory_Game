@@ -19,4 +19,13 @@
         android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Main Menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title" />
 </RelativeLayout>
