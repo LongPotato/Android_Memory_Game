@@ -5,10 +5,7 @@ package com.tbd.memory_game;
  */
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GameLogic implements Serializable {
 
@@ -19,19 +16,25 @@ public class GameLogic implements Serializable {
     //actual game solution
     private String[] game;
     private int correct;
-    private int score;
+    private int points;
     private int tries;
     // keep tracks of current game
     private String[] currentGame;
+    private HighScore score;
 
     public GameLogic(int cardNum){
         this.numOfCards = cardNum;
         game = new String[numOfCards];
         currentGame = new String[numOfCards];
         correct = 0;
-        score = 0;
+        points = 0;
         initializeGame();
+        this.score = new HighScore(scoreFile());
 
+    }
+
+    private String scoreFile(){
+        return "score" + numOfCards + ".dat" ;
     }
 
     public void initializeGame(){
@@ -75,20 +78,24 @@ public class GameLogic implements Serializable {
         tries++;
         if (game[index1] == game[index2]) {
             correct+=2;
-            score = score + 2;
+            points = points + 2;
+            score.changeHighScore(2);
 
             return true;
         }
         else{
             currentGame[index1] = "X";
             currentGame[index2] = "X";
-            if(score > 0) score = score - 1;
+            if(points > 0){
+                points = points - 1;
+                score.changeHighScore(-1);
+            }
             return false;
         }
     }
 
-    public int getScore(){
-        return score;
+    public int getPoints(){
+        return points;
     }
 
     // takes in index of user selected card and returns its value
