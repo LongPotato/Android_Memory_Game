@@ -35,7 +35,7 @@ public class HighScore {
         highScore=0;
         allowedHighScores=3;
         allHS = new String[allowedHighScores];
-        highScoreFileName=fileName+".dat";
+        highScoreFileName=fileName+".txt";
         root = new File(Environment.getExternalStorageDirectory(),"Saves");
         if (!root.exists()) {
             root.mkdirs();
@@ -49,10 +49,10 @@ public class HighScore {
     *Creates the HighScores files if it doesn't already exist.
     */
     private void createInitialHS(){
-        if(file.exists()==false){
+        if(!file.exists()){
             try {
-                file.createNewFile();
                 FileWriter writer= new FileWriter(file);
+                writer.append("");
                 String placeholderScores = "abc...0";
                 for(int i=0;i<allowedHighScores;i++){
                     writer.write(placeholderScores);
@@ -70,8 +70,8 @@ public class HighScore {
     */
     public void createExitHS(){
         try {
-            file.createNewFile();
             FileWriter writer= new FileWriter(file);
+            writer.append("");
             for(int i=0;i<allowedHighScores;i++){
                 String scores = allHS[i];
                 writer.write(scores);
