@@ -1,5 +1,7 @@
 package com.tbd.memory_game;
 
+import android.os.Environment;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -20,18 +22,25 @@ import java.util.Scanner;
 public class HighScore {
 
     private int highScore;
+    private int allowedHighScores;
     private String[] allHS;
     private String highScoreFileName;
     private File file;
+    private File root;
 
     /* Public,basic constructor. Initalizes HighScore and all variables.
     *
     */
     public HighScore(String fileName){
         highScore=0;
-        allHS = new String[3];
-        highScoreFileName=fileName;
-        file= new File(highScoreFileName);
+        allowedHighScores=3;
+        allHS = new String[allowedHighScores];
+        highScoreFileName=fileName+".dat";
+        root = new File(Environment.getExternalStorageDirectory(),"Saves");
+        if (!root.exists()) {
+            root.mkdirs();
+        }
+        file= new File(root,highScoreFileName);
         createInitialHS();
         importScores();
         Sort();
@@ -45,10 +54,11 @@ public class HighScore {
                 file.createNewFile();
                 FileWriter writer= new FileWriter(file);
                 String placeholderScores = "abc...0";
-                for(int i=0;i<5;i++){
+                for(int i=0;i<allowedHighScores;i++){
                     writer.write(placeholderScores);
                     writer.write(System.getProperty("line.separator"));
                 }
+                writer.flush();
                 writer.close();
             } catch (IOException e) {
                 System.out.println("No highscores");
@@ -62,11 +72,12 @@ public class HighScore {
         try {
             file.createNewFile();
             FileWriter writer= new FileWriter(file);
-            for(int i=0;i<5;i++){
+            for(int i=0;i<allowedHighScores;i++){
                 String scores = allHS[i];
                 writer.write(scores);
                 writer.write(System.getProperty("line.separator"));
             }
+            writer.flush();
             writer.close();
         } catch (IOException e) {
             System.out.println("No highscores");
