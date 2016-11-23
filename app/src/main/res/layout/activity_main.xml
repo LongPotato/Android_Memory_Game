@@ -10,19 +10,8 @@
     android:background="@drawable/felt"
     tools:context="com.tbd.memory_game.MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="      Number of Cards"
-        android:ems="10"
-        android:id="@+id/cardNumberUserInp"
-        android:layout_below="@+id/pleaseEnterText"
-        android:layout_centerHorizontal="true"
-        android:selectAllOnFocus="false" />
-
     <TextView
-        android:text="Please enter your desired number of cards"
+        android:text="@string/Please"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
@@ -31,7 +20,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Welcome to Concentration"
+        android:text="@string/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/welcomeText"
@@ -41,19 +30,32 @@
         android:layout_marginTop="53dp" />
 
     <Button
-        android:text="Start"
+        android:text="@string/Start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/startButton"
-        android:layout_below="@+id/cardNumberUserInp"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/highScoresButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:id="@+id/startButton" />
 
     <Button
-        android:text="HighScores"
+        android:text="@string/hs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="45dp"
         android:id="@+id/highScoresButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/cardNumberUserInp"
+        tools:text="@string/Number"
+        android:selectAllOnFocus="false"
+        android:layout_below="@+id/pleaseEnterText"
+        android:layout_alignRight="@+id/pleaseEnterText"
+        android:layout_alignEnd="@+id/pleaseEnterText" />
 </RelativeLayout>
