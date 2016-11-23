@@ -56,6 +56,5 @@
         tools:text="@string/Number"
         android:selectAllOnFocus="false"
         android:layout_below="@+id/pleaseEnterText"
-        android:layout_alignRight="@+id/pleaseEnterText"
-        android:layout_alignEnd="@+id/pleaseEnterText" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
