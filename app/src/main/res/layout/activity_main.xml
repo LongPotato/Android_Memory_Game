@@ -11,15 +11,6 @@
     tools:context="com.tbd.memory_game.MainActivity">
 
     <TextView
-        android:text="@string/Please"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:id="@+id/pleaseEnterText"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:text="@string/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,32 +21,36 @@
         android:layout_marginTop="53dp" />
 
     <Button
-        android:text="@string/Start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/highScoresButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:id="@+id/startButton" />
-
-    <Button
         android:text="@string/hs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="34dp"
         android:id="@+id/highScoresButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
+    <Button
+        android:text="@string/setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/cardNumberUserInp"
-        tools:text="@string/Number"
-        android:selectAllOnFocus="false"
-        android:layout_below="@+id/pleaseEnterText"
-        android:layout_alignRight="@+id/pleaseEnterText"
-        android:layout_alignEnd="@+id/pleaseEnterText" />
+        android:id="@+id/settingButton"
+        android:layout_above="@+id/highScoresButton"
+        android:layout_alignLeft="@+id/highScoresButton"
+        android:layout_alignStart="@+id/highScoresButton"
+        android:layout_marginBottom="27dp"
+        android:layout_alignRight="@+id/highScoresButton"
+        android:layout_alignEnd="@+id/highScoresButton" />
+
+    <Button
+        android:text="@string/Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startButton"
+        android:layout_above="@+id/settingButton"
+        android:layout_marginBottom="30dp"
+        android:layout_alignLeft="@+id/settingButton"
+        android:layout_alignStart="@+id/settingButton"
+        android:layout_alignRight="@+id/settingButton"
+        android:layout_alignEnd="@+id/settingButton" />
+
 </RelativeLayout>
