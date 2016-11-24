@@ -22,17 +22,15 @@ public class Setting extends AppCompatActivity {
 
         Spinner s = (Spinner) findViewById(R.id.selectSize);
 
+        // Get data from the size array to set the values for the spinner picker
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.size_array, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         s.setAdapter(adapter);
 
+        // Get saved size to set the initial spinner value
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), getApplicationContext().MODE_PRIVATE);
         int savedSize = sharedPref.getInt("SIZE", 4);
-
         Log.i("info", "saved size in setting is " + savedSize);
-
         int spinnerPosition = adapter.getPosition(Integer.toString(savedSize));
         s.setSelection(spinnerPosition);
 
@@ -75,6 +73,7 @@ public class Setting extends AppCompatActivity {
                         select = 4;
                         break;
                 }
+                // Save preferred size
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), getApplicationContext().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("SIZE", select);

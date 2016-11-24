@@ -29,8 +29,8 @@ public class GameLogic implements Serializable {
         correct = 0;
         points = 0;
         initializeGame();
-        this.score = new HighScore(scoreFile());
-
+        // TODO: Fix high score file not found error, uncomment these codes when complete
+        //this.score = new HighScore(scoreFile());
     }
 
     private String scoreFile(){
@@ -79,7 +79,7 @@ public class GameLogic implements Serializable {
         if (game[index1] == game[index2]) {
             correct+=2;
             points = points + 2;
-            score.changeHighScore(2);
+            //score.changeHighScore(2);
 
             return true;
         }
@@ -88,7 +88,7 @@ public class GameLogic implements Serializable {
             currentGame[index2] = "X";
             if(points > 0){
                 points = points - 1;
-                score.changeHighScore(-1);
+                //score.changeHighScore(-1);
             }
             return false;
         }
