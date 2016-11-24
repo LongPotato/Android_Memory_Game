@@ -28,33 +28,23 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="@string/Please"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:id="@+id/pleaseEnterText"
-        android:layout_above="@+id/cardNumberUserInp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp" />
-
     <Button
         android:text="@string/Start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/startButton"
-        android:layout_below="@+id/cardNumberUserInp"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/settingButton"
+        android:layout_alignLeft="@+id/settingButton"
+        android:layout_alignStart="@+id/settingButton" />
 
-    <EditText
+    <Button
+        android:text="@string/setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/cardNumberUserInp"
-        tools:text="@string/Number"
-        android:selectAllOnFocus="false"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/pleaseEnterText"
-        android:layout_alignEnd="@+id/pleaseEnterText" />
+        android:id="@+id/settingButton"
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/highScoresButton"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
