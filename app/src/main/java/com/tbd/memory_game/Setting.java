@@ -3,6 +3,7 @@ package com.tbd.memory_game;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,8 +28,10 @@ public class Setting extends AppCompatActivity {
 
         s.setAdapter(adapter);
 
-        SharedPreferences sharedPref = getPreferences(getApplicationContext().MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), getApplicationContext().MODE_PRIVATE);
         int savedSize = sharedPref.getInt("SIZE", 4);
+
+        Log.i("info", "saved size in setting is " + savedSize);
 
         int spinnerPosition = adapter.getPosition(Integer.toString(savedSize));
         s.setSelection(spinnerPosition);
@@ -72,7 +75,7 @@ public class Setting extends AppCompatActivity {
                         select = 4;
                         break;
                 }
-                SharedPreferences sharedPref = getPreferences(getApplicationContext().MODE_PRIVATE);
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), getApplicationContext().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("SIZE", select);
                 editor.commit();
