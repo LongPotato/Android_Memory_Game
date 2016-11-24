@@ -4,7 +4,10 @@ package com.tbd.memory_game;
  * Created by mirajpatel on 11/18/16.
  */
 
+import android.widget.Button;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameLogic implements Serializable {
@@ -21,6 +24,12 @@ public class GameLogic implements Serializable {
     // keep tracks of current game
     private String[] currentGame;
     private HighScore score;
+
+    protected ArrayList<Integer> revealed = new ArrayList<Integer>();
+    protected int firstCard = -1;
+    protected int secondCard = -1;
+    protected boolean tryAgain;
+    protected boolean lock;
 
     public GameLogic(int cardNum){
         this.numOfCards = cardNum;

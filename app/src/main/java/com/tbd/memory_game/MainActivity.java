@@ -48,37 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(settingScreen);
             }
         });
-
-
-     /* if(savedInstanceState != null) {
-            game = (GameLogic) savedInstanceState.getSerializable(GAME);
-          String[] choices = game.getGame();
-          for (int i = 0; i < choices.length; i++) {
-              Log.i("GAmeLog", choices[i]);
-          }
-      }
-        else {
-          game = new GameLogic(20);
-          String[] choices = game.getGame();
-          for (int i = 0; i < choices.length; i++) {
-              Log.i("newLog", choices[i]);
-          }
-      }
-    }
-
-    @Override
-    protected void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.i("save","onSaceInstanceState()");
-        String[] choices = game.getGame();
-        for(int i = 0; i < choices.length; i++) {
-            Log.i("save", choices[i]);
-        }
-        outState.putSerializable(GAME,game);
-
-    }*/
-
-
     }
 
 }

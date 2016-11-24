@@ -21,10 +21,9 @@ public class GameActivity extends AppCompatActivity {
     private GameLogic game;
     private HashMap<String, Integer> pic = new HashMap<String, Integer>();
     private HashMap<Integer, Integer> sizeMap = new HashMap<Integer, Integer>();
-    private Button firstCard;
-    private Button secondCard;
-    private boolean lock = false;
     private Button tryAgainButton;
+    private Button firstCard, secondCard;
+    private static final String GAME = "GAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
-        tryAgainButton.setEnabled(false);
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,8 +49,25 @@ public class GameActivity extends AppCompatActivity {
         numCol = sizeMap.get(savedSize);
         numRow = savedSize / numCol;
 
-        game = new GameLogic(savedSize);
+        // Save instance state for screen rotation
+        if(savedInstanceState != null) {
+            game = (GameLogic) savedInstanceState.getSerializable(GAME);
+        }
+        else {
+            // New game
+            game = new GameLogic(savedSize);
+            game.tryAgain = false;
+        }
+
+        tryAgainButton.setEnabled(game.tryAgain);
         loadCards();
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("save","onSaceInstanceState()");
+        outState.putSerializable(GAME, game);
     }
 
     /**
@@ -110,7 +125,22 @@ public class GameActivity extends AppCompatActivity {
 
             for (int j = 0; j < numCol; j++) {
                 Button button = new Button(mainLayout.getContext());
-                button.setBackgroundResource(R.drawable.poker);
+
+                if (game.revealed.contains(index)) {
+                    Log.i("reveal", "index is " + index + " choice is " + game.getChoice(index));
+                    button.setBackgroundResource(pic.get(game.getChoice(index).toLowerCase()));
+                } else {
+                    button.setBackgroundResource(R.drawable.poker);
+                }
+
+                if (game.firstCard == index) {
+                    firstCard = button;
+                }
+
+                if (game.secondCard == index) {
+                    secondCard = button;
+                }
+
                 button.setId(index);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -135,7 +165,22 @@ public class GameActivity extends AppCompatActivity {
 
             for (int j = 0; j < leftOver; j++) {
                 Button button = new Button(mainLayout.getContext());
-                button.setBackgroundResource(R.drawable.poker);
+
+                if (game.revealed.contains(index)) {
+                    Log.i("reveal", "index is " + index + " choice is " + game.getChoice(index));
+                    button.setBackgroundResource(pic.get(game.getChoice(index).toLowerCase()));
+                } else {
+                    button.setBackgroundResource(R.drawable.poker);
+                }
+
+                if (game.firstCard == index) {
+                    firstCard = button;
+                }
+
+                if (game.secondCard == index) {
+                    secondCard = button;
+                }
+
                 button.setId(index);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,7 +201,14 @@ public class GameActivity extends AppCompatActivity {
      * @param button
      */
     private void flipCard(Button button) {
-        if (!lock) {
+        if (game.isWon()) {
+            // Game over
+            game.lock = true;
+            tryAgainButton.setEnabled(false);
+            game.tryAgain = false;
+        }
+
+        if (!game.lock) {
             String choice = game.getChoice(button.getId());
             choice = choice.toLowerCase();
             Log.i("info", "id is " + button.getId() + " choice is " + choice);
@@ -165,33 +217,50 @@ public class GameActivity extends AppCompatActivity {
             if (firstCard == null) {
                 Log.i("info", "first card is " + choice);
                 firstCard = button;
+                game.firstCard = button.getId();
+                game.revealed.add(button.getId());
             } else {
+                game.tryAgain = false;
+
                 // Same card
                 if (firstCard.getId() == button.getId()) {
                     return;
                 }
 
                 secondCard = button;
+                game.secondCard = button.getId();
+                game.revealed.add(button.getId());
                 Log.i("info", "second card is " + choice);
 
                 if (!game.isChoiceCorrect(firstCard.getId(), secondCard.getId())) {
                     tryAgainButton.setEnabled(true);
-                    lock = true;
+                    game.tryAgain = true;
+                    game.lock = true;
                 } else {
                     firstCard = null;
                     secondCard = null;
+                    game.firstCard = -1;
+                    game.secondCard = -1;
                 }
             }
         }
     }
 
+    /**
+     *
+     */
     private void tryAgain() {
         firstCard.setBackgroundResource(R.drawable.poker);
         secondCard.setBackgroundResource(R.drawable.poker);
+        game.revealed.remove(game.revealed.indexOf(firstCard.getId()));
+        game.revealed.remove(game.revealed.indexOf(secondCard.getId()));
         firstCard = null;
         secondCard = null;
-        lock = false;
+        game.firstCard = -1;
+        game.secondCard = -1;
+        game.lock = false;
         tryAgainButton.setEnabled(false);
+        game.tryAgain = false;
     }
 
 }
