@@ -41,12 +41,10 @@ public class GameLogic implements Serializable {
         correct = 0;
         points = 0;
         initializeGame();
-        // TODO: Fix high score file not found error, uncomment these codes when complete
-        //this.score = new HighScore(scoreFile());
+        this.score = new HighScore(scoreFile());
     }
 
     private String scoreFile(){
-        return "score" + numOfCards + ".dat" ;
     }
 
     public void initializeGame(){
