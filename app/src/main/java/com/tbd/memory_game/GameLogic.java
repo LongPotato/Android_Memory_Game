@@ -45,6 +45,7 @@ public class GameLogic implements Serializable {
     }
 
     private String scoreFile(){
+        return numOfCards+" Cards" ;
     }
 
     public void initializeGame(){
