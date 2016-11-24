@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,6 +24,8 @@ public class GameActivity extends AppCompatActivity {
     private HashMap<String, Integer> pic = new HashMap<String, Integer>();
     private HashMap<Integer, Integer> sizeMap = new HashMap<Integer, Integer>();
     private Button tryAgainButton;
+    private Button newGameButton;
+    private TableLayout mainLayout;
     private Button firstCard, secondCard;
     private static final String GAME = "GAME";
 
@@ -29,6 +33,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        mainLayout = (TableLayout) findViewById(R.id.mainLayout);
 
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +44,33 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        newGameButton = (Button) findViewById(R.id.newGameButton);
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast = Toast.makeText(mainLayout.getContext(), "Created new game", Toast.LENGTH_SHORT);
+                toast.show();
+                mainLayout.removeAllViews();
+                newGame(null);
+                firstCard = null;
+                secondCard = null;
+            }
+        });
+
+        newGame(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("save","onSaceInstanceState()");
+        outState.putSerializable(GAME, game);
+    }
+
+    /**
+     *
+     */
+    public void newGame(Bundle savedInstanceState) {
         assignPictures();
         assignSizes();
 
@@ -61,13 +94,6 @@ public class GameActivity extends AppCompatActivity {
 
         tryAgainButton.setEnabled(game.tryAgain);
         loadCards();
-    }
-
-    @Override
-    protected void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.i("save","onSaceInstanceState()");
-        outState.putSerializable(GAME, game);
     }
 
     /**
@@ -105,8 +131,6 @@ public class GameActivity extends AppCompatActivity {
      *
      */
     public void loadCards() {
-        TableLayout mainLayout = (TableLayout) findViewById(R.id.mainLayout);
-
         // Adjust table layout for cards display
         TableLayout.LayoutParams tableRowParams=
                 new TableLayout.LayoutParams
