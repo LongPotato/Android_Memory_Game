@@ -29,7 +29,7 @@ public class GameLogic implements Serializable {
         correct = 0;
         points = 0;
         initializeGame();
-        this.score = new HighScore(scoreFile());
+       // this.score = new HighScore(scoreFile());
 
     }
 

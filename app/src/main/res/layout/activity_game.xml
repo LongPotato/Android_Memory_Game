@@ -12,17 +12,7 @@
     tools:context="com.tbd.memory_game.GameActivity">
 
     <Button
-        android:text="Try Again"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tryAgainButton"
-        android:layout_above="@+id/newGameButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="69dp" />
-
-    <Button
-        android:text="End Game"
+        android:text="@string/End"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/endGameButton"
@@ -32,12 +22,22 @@
         android:layout_marginBottom="21dp" />
 
     <Button
-        android:text="New Game"
+        android:text="@string/New"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="47dp"
         android:id="@+id/newGameButton"
         android:layout_above="@+id/endGameButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/Try"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tryAgainButton"
+        android:layout_marginBottom="67dp"
+        android:layout_above="@+id/newGameButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>

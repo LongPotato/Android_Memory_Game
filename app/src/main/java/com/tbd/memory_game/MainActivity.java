@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
+
     private GameLogic game;
     private static final String GAME = "GAME";
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-     /* if(savedInstanceState != null) {
+      if(savedInstanceState != null) {
             game = (GameLogic) savedInstanceState.getSerializable(GAME);
           String[] choices = game.getGame();
           for (int i = 0; i < choices.length; i++) {
@@ -59,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         }
         outState.putSerializable(GAME,game);
 
-    }*/
+    }
 
 
     }
 
-}
+
