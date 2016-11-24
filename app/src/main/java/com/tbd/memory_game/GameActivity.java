@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity {
     private TableLayout mainLayout;
     private Button firstCard, secondCard;
     private static final String GAME = "GAME";
+    private TextView scoreDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         mainLayout = (TableLayout) findViewById(R.id.mainLayout);
+        scoreDisplay = (TextView) findViewById(R.id.scoreDisplay);
 
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +96,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         tryAgainButton.setEnabled(game.tryAgain);
+        scoreDisplay.setText("Score: " + game.getPoints());
         loadCards();
     }
 
@@ -260,11 +264,13 @@ public class GameActivity extends AppCompatActivity {
                     tryAgainButton.setEnabled(true);
                     game.tryAgain = true;
                     game.lock = true;
+                    scoreDisplay.setText("Score: " + game.getPoints());
                 } else {
                     firstCard = null;
                     secondCard = null;
                     game.firstCard = -1;
                     game.secondCard = -1;
+                    scoreDisplay.setText("Score: " + game.getPoints());
                 }
             }
         }
