@@ -1,8 +1,11 @@
-package com.tbd.memory_game;
+/******************************************************************************
+ * file: GameActivity.java
+ * author: Miraj, Khanh, Adrian
+ * class: CS 245 - Programming Graphical User Interface
 
-/**
- * Created by mirajpatel on 11/18/16.
- */
+ * assignment: Android App Project
+ ******************************************************************************/
+package com.tbd.memory_game;
 
 import android.widget.Button;
 

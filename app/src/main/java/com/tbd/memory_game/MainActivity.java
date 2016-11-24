@@ -1,3 +1,10 @@
+/******************************************************************************
+ * file: GameActivity.java
+ * author: Miraj, Khanh, Adrian
+ * class: CS 245 - Programming Graphical User Interface
+
+ * assignment: Android App Project
+ ******************************************************************************/
 package com.tbd.memory_game;
 
 import android.content.Context;

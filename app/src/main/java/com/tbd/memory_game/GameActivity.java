@@ -1,3 +1,10 @@
+/******************************************************************************
+ * file: GameActivity.java
+ * author: Miraj, Khanh, Adrian
+ * class: CS 245 - Programming Graphical User Interface
+
+ * assignment: Android App Project
+ ******************************************************************************/
 package com.tbd.memory_game;
 
 import android.content.SharedPreferences;
@@ -18,6 +25,9 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Game play activity class, display the UI and make request to game logic.
+ */
 public class GameActivity extends AppCompatActivity {
     private int savedSize = 4;
     private int numRow, numCol;
@@ -47,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        // New game
         newGameButton = (Button) findViewById(R.id.newGameButton);
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +74,10 @@ public class GameActivity extends AppCompatActivity {
         newGame(savedInstanceState);
     }
 
+    /**
+     * Save game logic instance when the screen is rotated.
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -71,7 +86,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Initialize elements, creating new game.
+     * Restore saved instance.
      */
     public void newGame(Bundle savedInstanceState) {
         assignPictures();
@@ -101,7 +117,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Assign pictures to the corresponding animal name.
      */
     public void assignPictures() {
         pic.put("ant", R.drawable.ant);
@@ -117,7 +133,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Assign the size of the row (number of column)
      */
     public void assignSizes() {
         sizeMap.put(4, 2);
@@ -132,7 +148,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Load the cards onto the mainLayout, calculate the number of rows and columns.
+     * For restored state: check if the card has been revealed before.
+     * Keep track of first and second card.
      */
     public void loadCards() {
         // Adjust table layout for cards display
@@ -225,12 +243,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Change the image of the button card.
+     * Check for win condition and card selection order.
      * @param button
      */
     private void flipCard(Button button) {
         if (game.isWon()) {
             // Game over
+            Toast toast = Toast.makeText(mainLayout.getContext(), "You won!", Toast.LENGTH_SHORT);
+            toast.show();
             game.lock = true;
             tryAgainButton.setEnabled(false);
             game.tryAgain = false;
@@ -277,7 +298,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * When both card are not match, flip them back, and reset the statuses.
      */
     private void tryAgain() {
         firstCard.setBackgroundResource(R.drawable.poker);
