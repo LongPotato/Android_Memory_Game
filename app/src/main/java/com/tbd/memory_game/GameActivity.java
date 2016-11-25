@@ -329,6 +329,8 @@ public class GameActivity extends AppCompatActivity {
                     game.lock = true;
                     scoreDisplay.setText("Score: " + game.getPoints());
                 } else {
+                    firstCard.setClickable(false);
+                    secondCard.setClickable(false);
                     firstCard = null;
                     secondCard = null;
                     game.firstCard = -1;
