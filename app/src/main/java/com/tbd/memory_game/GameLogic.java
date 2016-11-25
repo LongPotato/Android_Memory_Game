@@ -119,6 +119,10 @@ public class GameLogic implements Serializable {
         return correct == numOfCards;
     }
 
+    public HighScore getScore(){
+        return score;
+    }
+
     public int getTries(){
         return tries;
     }

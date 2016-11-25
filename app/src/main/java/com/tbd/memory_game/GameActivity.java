@@ -7,15 +7,20 @@
  ******************************************************************************/
 package com.tbd.memory_game;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,12 +35,14 @@ import java.util.TimerTask;
  */
 public class GameActivity extends AppCompatActivity {
     private int savedSize = 4;
+    private String initial;
     private int numRow, numCol;
     private GameLogic game;
     private HashMap<String, Integer> pic = new HashMap<String, Integer>();
     private HashMap<Integer, Integer> sizeMap = new HashMap<Integer, Integer>();
     private Button tryAgainButton;
     private Button newGameButton;
+    private Button endGameButton;
     private TableLayout mainLayout;
     private Button firstCard, secondCard;
     private static final String GAME = "GAME";
@@ -71,6 +78,17 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        endGameButton = (Button) findViewById(R.id.endGameButton);
+        endGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!game.isWon()){
+
+                }
+                endGame();
+            }
+        });
+
         newGame(savedInstanceState);
     }
 
@@ -85,6 +103,33 @@ public class GameActivity extends AppCompatActivity {
         outState.putSerializable(GAME, game);
     }
 
+    private void endGame(){
+        game.getScore().setHighScore(game.getPoints());
+        String[] lScore = game.getScore().getScore(2).split("\\.\\.\\.");
+        if (game.getScore().getHighScore() >= Integer.parseInt(lScore[1])){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("New HighScore!");
+
+            final EditText input = new EditText(this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+            builder.setView(input);
+
+            builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    initial = input.getText().toString();
+                    game.getScore().addScore(initial);
+                    game.getScore().createExitHS();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        }
+    }
     /**
      * Initialize elements, creating new game.
      * Restore saved instance.
@@ -255,7 +300,8 @@ public class GameActivity extends AppCompatActivity {
             game.lock = true;
             tryAgainButton.setEnabled(false);
             game.tryAgain = false;
-        }
+            endGame();
+            }
 
         if (!game.lock) {
             String choice = game.getChoice(button.getId());

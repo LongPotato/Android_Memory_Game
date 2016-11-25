@@ -11,6 +11,7 @@
     <string name="Try">TRY AGAIN</string>
     <string name="End">END GAME</string>
     <string name="Main">MAIN MENU</string>
+    <string name="Enter">Please Enter Your Desired UserName</string>
     <string name="preference_file_key">com.edu.cpp.tbd.memory</string>
     <string-array name="size_array">
         <item>4</item>
