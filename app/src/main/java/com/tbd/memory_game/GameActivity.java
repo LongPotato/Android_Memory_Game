@@ -44,6 +44,7 @@ public class GameActivity extends AppCompatActivity {
     private Button newGameButton;
     private Button endGameButton;
     private TableLayout mainLayout;
+    private Button[] holder;
     private Button firstCard, secondCard;
     private static final String GAME = "GAME";
     private TextView scoreDisplay;
@@ -83,8 +84,22 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!game.isWon()){
-
+                    for(int index=0;index<holder.length;index++){
+                        if(holder[index].isEnabled()) {
+                            String choice = game.getChoice(holder[index].getId());
+                            choice = choice.toLowerCase();
+                            holder[index].setBackgroundResource(pic.get(choice));
+                            holder[index].setEnabled(false);
+                        }
+                    }
                 }
+                else {
+                    Toast toast = Toast.makeText(mainLayout.getContext(), "You won!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                game.lock = true;
+                tryAgainButton.setEnabled(false);
+                game.tryAgain = false;
                 endGame();
             }
         });
@@ -103,18 +118,22 @@ public class GameActivity extends AppCompatActivity {
         outState.putSerializable(GAME, game);
     }
 
+    /**
+     * End game method. Records score into the highscore class and if it is a new high score, adds
+     * it to the appropriate highscore file.
+     */
     private void endGame(){
         game.getScore().setHighScore(game.getPoints());
         String[] lScore = game.getScore().getScore(2).split("\\.\\.\\.");
         if (game.getScore().getHighScore() >= Integer.parseInt(lScore[1])){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("New HighScore!");
+            builder.setTitle("New High Score!");
 
             final EditText input = new EditText(this);
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
             builder.setView(input);
 
-            builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     initial = input.getText().toString();
                     game.getScore().addScore(initial);
@@ -129,6 +148,7 @@ public class GameActivity extends AppCompatActivity {
             });
             builder.show();
         }
+        endGameButton.setEnabled(false);
     }
     /**
      * Initialize elements, creating new game.
@@ -153,10 +173,12 @@ public class GameActivity extends AppCompatActivity {
         else {
             // New game
             game = new GameLogic(savedSize);
+            holder=new Button[savedSize];
             game.tryAgain = false;
         }
 
         tryAgainButton.setEnabled(game.tryAgain);
+        endGameButton.setEnabled(true);
         scoreDisplay.setText("Score: " + game.getPoints());
         loadCards();
     }
@@ -240,6 +262,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
                 row.addView(button);
+                holder[index]=button;
                 index++;
             }
 
@@ -280,6 +303,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
                 lastRow.addView(button);
+                holder[index]=button;
                 index++;
             }
 
@@ -333,6 +357,8 @@ public class GameActivity extends AppCompatActivity {
                     game.lock = true;
                     scoreDisplay.setText("Score: " + game.getPoints());
                 } else {
+                    firstCard.setEnabled(false);
+                    secondCard.setEnabled(false);
                     firstCard = null;
                     secondCard = null;
                     game.firstCard = -1;
