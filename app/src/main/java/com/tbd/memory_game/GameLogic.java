@@ -1,10 +1,16 @@
+/******************************************************************************
+ * file: GameActivity.java
+ * author: Miraj, Khanh, Adrian
+ * class: CS 245 - Programming Graphical User Interface
+
+ * assignment: Android App Project
+ ******************************************************************************/
 package com.tbd.memory_game;
 
-/**
- * Created by mirajpatel on 11/18/16.
- */
+import android.widget.Button;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameLogic implements Serializable {
@@ -22,6 +28,12 @@ public class GameLogic implements Serializable {
     private String[] currentGame;
     private HighScore score;
 
+    protected ArrayList<Integer> revealed = new ArrayList<Integer>();
+    protected int firstCard = -1;
+    protected int secondCard = -1;
+    protected boolean tryAgain;
+    protected boolean lock;
+
     public GameLogic(int cardNum){
         this.numOfCards = cardNum;
         game = new String[numOfCards];
@@ -29,8 +41,8 @@ public class GameLogic implements Serializable {
         correct = 0;
         points = 0;
         initializeGame();
-       // this.score = new HighScore(scoreFile());
-
+        // TODO: Fix high score file not found error, uncomment these codes when complete
+        //this.score = new HighScore(scoreFile());
     }
 
     private String scoreFile(){
@@ -79,7 +91,7 @@ public class GameLogic implements Serializable {
         if (game[index1] == game[index2]) {
             correct+=2;
             points = points + 2;
-            score.changeHighScore(2);
+            //score.changeHighScore(2);
 
             return true;
         }
@@ -88,7 +100,7 @@ public class GameLogic implements Serializable {
             currentGame[index2] = "X";
             if(points > 0){
                 points = points - 1;
-                score.changeHighScore(-1);
+                //score.changeHighScore(-1);
             }
             return false;
         }

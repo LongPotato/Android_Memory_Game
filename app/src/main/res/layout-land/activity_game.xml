@@ -12,32 +12,70 @@
     tools:context="com.tbd.memory_game.GameActivity">
 
     <Button
-        android:text="@string/New"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
-        android:id="@+id/newGameButton"
-        android:layout_above="@+id/endGameButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
         android:text="@string/Try"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tryAgainButton"
+        android:layout_marginTop="11dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/newGameButton"
-        android:layout_alignStart="@+id/newGameButton"
-        android:layout_marginTop="11dp" />
+        android:layout_alignLeft="@+id/endGameButton"
+        android:layout_alignStart="@+id/endGameButton" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/endGameButton"
+        android:id="@+id/mainLayout">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
 
     <Button
         android:text="@string/End"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/endGameButton"
-        android:layout_marginBottom="14dp"
+        android:layout_below="@+id/newGameButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp" />
+
+    <Button
+        android:text="@string/New"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newGameButton"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/tryAgainButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/tableLayout"
+        android:layout_toEndOf="@+id/tableLayout" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:id="@+id/scoreDisplay"
+        android:layout_toRightOf="@+id/mainLayout"
+        android:layout_toEndOf="@+id/mainLayout"
+        android:layout_below="@+id/endGameButton" />
 </RelativeLayout>
