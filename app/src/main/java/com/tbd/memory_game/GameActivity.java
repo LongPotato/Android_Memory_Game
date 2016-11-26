@@ -7,16 +7,21 @@
  ******************************************************************************/
 package com.tbd.memory_game;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,13 +36,16 @@ import java.util.TimerTask;
  */
 public class GameActivity extends AppCompatActivity {
     private int savedSize = 4;
+    private String initial;
     private int numRow, numCol;
     private GameLogic game;
     private HashMap<String, Integer> pic = new HashMap<String, Integer>();
     private HashMap<Integer, Integer> sizeMap = new HashMap<Integer, Integer>();
     private Button tryAgainButton;
     private Button newGameButton;
+    private Button endGameButton;
     private TableLayout mainLayout;
+    private Button[] holder;
     private Button firstCard, secondCard;
     private static final String GAME = "GAME";
     private TextView scoreDisplay;
@@ -76,13 +84,34 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        endGameButton = (Button) findViewById(R.id.endGameButton);
+        endGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!game.isWon()){
+                    for(int index=0;index<holder.length;index++){
+                        if(holder[index].isEnabled()) {
+                            String choice = game.getChoice(holder[index].getId());
+                            choice = choice.toLowerCase();
+                            holder[index].setBackgroundResource(pic.get(choice));
+                            holder[index].setEnabled(false);
+                        }
+                    }
+                }
+                else {
+                    Toast toast = Toast.makeText(mainLayout.getContext(), "You won!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                game.lock = true;
+                tryAgainButton.setEnabled(false);
+                game.tryAgain = false;
+                endGame();
+            }
+        });
+
         newGame(savedInstanceState);
 
-        /*if(bkgrdmscBox == 0) {
-            bkgrdmsc = MediaPlayer.create(GameActivity.this, R.raw.background);
-            bkgrdmsc.setLooping(true);
-            bkgrdmsc.start();
-        }//*/
+        // create new background music only once when game initially starts.
         bkgrdmscBox = Setting.mbkgrdCheked;
         if(bkgrdmscBox == 0) {
             if(bkgrdmsc == null && !isOn) {
@@ -98,6 +127,11 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * method - onResume
+     * purpose - overrides onResume method, used to start background music
+     * when screen orientation changes.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -105,11 +139,15 @@ public class GameActivity extends AppCompatActivity {
             bkgrdmsc.start();
         }
     }
+    /*
+     * method - onPause
+     * purpose - overrides onPause method, used to pause background music
+     * when pressing back or home button, or when screen orientation changes.
+     */
     @Override
     protected void onPause() {
         super.onPause();
         if(bkgrdmscBox == 0 && bkgrdmsc != null) {
-            //bkgrdmsc.release();
             bkgrdmsc.pause();
             pos = bkgrdmsc.getCurrentPosition();
         }
@@ -126,6 +164,38 @@ public class GameActivity extends AppCompatActivity {
         outState.putSerializable(GAME, game);
     }
 
+    /**
+     * End game method. Records score into the highscore class and if it is a new high score, adds
+     * it to the appropriate highscore file.
+     */
+    private void endGame(){
+        game.getScore().setHighScore(game.getPoints());
+        String[] lScore = game.getScore().getScore(2).split("\\.\\.\\.");
+        if (game.getScore().getHighScore() >= Integer.parseInt(lScore[1])){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("New High Score!");
+
+            final EditText input = new EditText(this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+            builder.setView(input);
+
+            builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    initial = input.getText().toString();
+                    game.getScore().addScore(initial);
+                    game.getScore().createExitHS();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        }
+        endGameButton.setEnabled(false);
+    }
     /**
      * Initialize elements, creating new game.
      * Restore saved instance.
@@ -149,10 +219,12 @@ public class GameActivity extends AppCompatActivity {
         else {
             // New game
             game = new GameLogic(savedSize);
+            holder=new Button[savedSize];
             game.tryAgain = false;
         }
 
         tryAgainButton.setEnabled(game.tryAgain);
+        endGameButton.setEnabled(true);
         scoreDisplay.setText("Score: " + game.getPoints());
         loadCards();
     }
@@ -236,6 +308,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
                 row.addView(button);
+                holder[index]=button;
                 index++;
             }
 
@@ -276,6 +349,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
                 lastRow.addView(button);
+                holder[index]=button;
                 index++;
             }
 
@@ -296,7 +370,8 @@ public class GameActivity extends AppCompatActivity {
             game.lock = true;
             tryAgainButton.setEnabled(false);
             game.tryAgain = false;
-        }
+            endGame();
+            }
 
         if (!game.lock) {
             String choice = game.getChoice(button.getId());
@@ -328,8 +403,9 @@ public class GameActivity extends AppCompatActivity {
                     game.lock = true;
                     scoreDisplay.setText("Score: " + game.getPoints());
                 } else {
-                    firstCard.setClickable(false);
-                    secondCard.setClickable(false);
+
+                    firstCard.setEnabled(false);
+                    secondCard.setEnabled(false);
                     firstCard = null;
                     secondCard = null;
                     game.firstCard = -1;

@@ -43,7 +43,10 @@ public class GameLogic implements Serializable {
         initializeGame();
         this.score = new HighScore(scoreFile());
     }
-
+    /*
+    * method - scoreFile
+    * purpose - returns file name depending on the number of cards
+     */
     private String scoreFile(){
         return numOfCards+" Cards" ;
     }
@@ -54,14 +57,20 @@ public class GameLogic implements Serializable {
 
     }
 
-    // tracks current game, initially all cards are filled with 'X'
+    /*
+     * method - fillCurrent
+     * purpose - fills initial card game with all 'X' used for testing
+     */
     private void fillCurrent(){
         for(int i = 0; i < currentGame.length; i++) {
             currentGame[i] = "X";
         }
     }
 
-    // fill game with words and shuffle to randomize position
+    /*
+     * method - fillCards
+     * purpose -  fills the game with words and randomize it
+     */
     private void fillCards(){
         int temp = 0;
         for(int i = 0; i < game.length; i+=2){
@@ -71,7 +80,6 @@ public class GameLogic implements Serializable {
             temp++;
         }
 
-        //Collections.shuffle(Arrays.asList(game));
         Random rnd = new Random();
         for(int i = game.length - 1; i > 0; i--){
             int index = rnd.nextInt(i + 1);
@@ -82,7 +90,11 @@ public class GameLogic implements Serializable {
         }
     }
 
-    // takes in two index and returns true if both value is same else false
+    /*
+     * method - isChoiceCorrect
+     * purpose - recieves indeces of two cards fliped and returns
+     * true it the choice match else returns false.
+     */
     public boolean isChoiceCorrect(int index1, int index2){
         if(index1 == index2) return false;
 
@@ -90,8 +102,6 @@ public class GameLogic implements Serializable {
         if (game[index1] == game[index2]) {
             correct+=2;
             points = points + 2;
-            //score.changeHighScore(2);
-
             return true;
         }
         else{
@@ -99,38 +109,72 @@ public class GameLogic implements Serializable {
             currentGame[index2] = "X";
             if(points > 0){
                 points = points - 1;
-                //score.changeHighScore(-1);
             }
             return false;
         }
     }
 
+    /*
+     * method - getPoints
+     * purpose - returns current points used for testing
+     */
     public int getPoints(){
         return points;
     }
 
-    // takes in index of user selected card and returns its value
+    /*
+     * method - getChoice
+     * purpose - takes index input and returns and card at that index
+     */
     public String getChoice(int index){
         currentGame[index] = game[index];
         return game[index];
     }
 
+    /*
+     * method - isWon
+     * purpose - checks if game is won already
+     */
     public boolean isWon(){
         return correct == numOfCards;
     }
 
+    /*
+     * method getScore
+     * purpose - returns score object to caller to modify game score
+     */
+    public HighScore getScore(){
+        return score;
+    }
+
+    /*
+     * method - getTries
+     * purpose - returns number of card flips tried
+     */
     public int getTries(){
         return tries;
     }
 
+    /*
+     * method - getCurrentGame
+     * purpose - returns current game so far
+     */
     public String[] getCurrentGame(){
         return currentGame;
     }
 
+    /*
+     * method - getGame
+     * purpose - returns all the answer for the game
+     */
     public String[] getGame(){
         return game;
     }
 
+    /*
+     * method - reset
+     * purpose - resets the whole game, used for testing
+     */
     public void reset(){
         numOfCards = 0;
         correct = 0;

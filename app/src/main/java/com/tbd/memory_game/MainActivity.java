@@ -17,10 +17,7 @@ import android.widget.Button;
 import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
-    private GameLogic game;
-    private static final String GAME = "GAME";
-    /*MediaPlayer bkgrdmsc;
-    private int bkgrdmscBox = Setting.mbkgrdCheked;//*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,21 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       /* if(bkgrdmscBox == 0) {
-            bkgrdmsc = MediaPlayer.create(MainActivity.this, R.raw.background);
-            bkgrdmsc.setLooping(true);
-            bkgrdmsc.start();
-        }//*/
     }
 
-   /* @Override
-    protected void onPause() {
-        super.onPause();
-        if(bkgrdmscBox == 0) {
-            bkgrdmsc.release();
-        }
-        Setting.mbkgrdCheked = 0;
-
-        finish();
-    }//*/
 }
