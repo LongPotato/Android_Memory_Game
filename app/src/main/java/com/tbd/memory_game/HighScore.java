@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /******************************************************************************
@@ -19,7 +20,7 @@ import java.util.Scanner;
  * purpose: This class will represent each separate game's top 3 highscores.
  ******************************************************************************/
 
-public class HighScore {
+public class HighScore implements Serializable {
 
     private int highScore;
     private int allowedHighScores;

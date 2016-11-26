@@ -111,10 +111,9 @@ public class GameActivity extends AppCompatActivity {
         if(bkgrdmscBox == 0 && bkgrdmsc != null) {
             //bkgrdmsc.release();
             bkgrdmsc.pause();
+            pos = bkgrdmsc.getCurrentPosition();
         }
-       // Setting.mbkgrdCheked = 0;
-        pos = bkgrdmsc.getCurrentPosition();
-       // finish();
+
     }
     /**
      * Save game logic instance when the screen is rotated.
