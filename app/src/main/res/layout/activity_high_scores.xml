@@ -23,7 +23,7 @@
         android:text="@string/hs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="@android:color/background_light"
         android:layout_marginTop="17dp"
         android:id="@+id/title"
         android:layout_alignParentTop="true"
@@ -35,7 +35,8 @@
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:id="@+id/hsOptions" />
+        android:id="@+id/hsOptions"
+        android:background="@android:drawable/btn_dropdown" />
 
     <TextView
         android:text="TextView"
@@ -44,7 +45,7 @@
         android:layout_below="@+id/hsOptions"
         android:layout_toLeftOf="@+id/title"
         android:layout_toStartOf="@+id/title"
-        android:textColor="#000"
+        android:textColor="@android:color/background_light"
         android:layout_marginTop="68dp"
         android:id="@+id/hsOne" />
 
@@ -55,7 +56,7 @@
         android:layout_above="@+id/returnButton"
         android:layout_alignLeft="@+id/hsTwo"
         android:layout_alignStart="@+id/hsTwo"
-        android:textColor="#000"
+        android:textColor="@android:color/background_light"
         android:layout_marginBottom="76dp"
         android:id="@+id/hsThree" />
 
@@ -64,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hsTwo"
-        android:textColor="#000"
+        android:textColor="@android:color/background_light"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/hsOne"
         android:layout_alignStart="@+id/hsOne" />
