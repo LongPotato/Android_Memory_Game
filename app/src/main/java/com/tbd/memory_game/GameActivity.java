@@ -61,6 +61,7 @@ public class GameActivity extends AppCompatActivity {
 
         mainLayout = (TableLayout) findViewById(R.id.mainLayout);
         scoreDisplay = (TextView) findViewById(R.id.scoreDisplay);
+        holder=new Button[getSharedPreferences(getString(R.string.preference_file_key), getApplicationContext().MODE_PRIVATE).getInt("SIZE", 4)];
 
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +220,6 @@ public class GameActivity extends AppCompatActivity {
         else {
             // New game
             game = new GameLogic(savedSize);
-            holder=new Button[savedSize];
             game.tryAgain = false;
         }
 
