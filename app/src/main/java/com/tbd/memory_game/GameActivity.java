@@ -96,16 +96,14 @@ public class GameActivity extends AppCompatActivity {
                             choice = choice.toLowerCase();
                             holder[index].setBackgroundResource(pic.get(choice));
                             holder[index].setEnabled(false);
+                            game.revealed.add(holder[index].getId());
                         }
                     }
-                }
-                else {
-                    Toast toast = Toast.makeText(mainLayout.getContext(), "You won!", Toast.LENGTH_SHORT);
-                    toast.show();
                 }
                 game.lock = true;
                 tryAgainButton.setEnabled(false);
                 game.tryAgain = false;
+                game.endGame=false;
                 endGame();
             }
         });
@@ -196,6 +194,7 @@ public class GameActivity extends AppCompatActivity {
             builder.show();
         }
         endGameButton.setEnabled(false);
+        game.endGame=false;
     }
     /**
      * Initialize elements, creating new game.
@@ -222,9 +221,8 @@ public class GameActivity extends AppCompatActivity {
             game = new GameLogic(savedSize);
             game.tryAgain = false;
         }
-
         tryAgainButton.setEnabled(game.tryAgain);
-        endGameButton.setEnabled(true);
+        endGameButton.setEnabled(game.endGame);
         scoreDisplay.setText("Score: " + game.getPoints());
         loadCards();
     }
@@ -363,16 +361,6 @@ public class GameActivity extends AppCompatActivity {
      * @param button
      */
     private void flipCard(Button button) {
-        if (game.isWon()) {
-            // Game over
-            Toast toast = Toast.makeText(mainLayout.getContext(), "You won!", Toast.LENGTH_SHORT);
-            toast.show();
-            game.lock = true;
-            tryAgainButton.setEnabled(false);
-            game.tryAgain = false;
-            endGame();
-            }
-
         if (!game.lock) {
             String choice = game.getChoice(button.getId());
             choice = choice.toLowerCase();
@@ -413,6 +401,15 @@ public class GameActivity extends AppCompatActivity {
                     scoreDisplay.setText("Score: " + game.getPoints());
                 }
             }
+        }
+        if (game.isWon()) {
+            // Game over
+            Toast toast = Toast.makeText(mainLayout.getContext(), "You won!", Toast.LENGTH_SHORT);
+            toast.show();
+            game.lock = true;
+            tryAgainButton.setEnabled(false);
+            game.tryAgain = false;
+            endGame();
         }
     }
 
