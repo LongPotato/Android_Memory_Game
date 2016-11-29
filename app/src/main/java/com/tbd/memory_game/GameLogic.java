@@ -32,7 +32,6 @@ public class GameLogic implements Serializable {
     protected int firstCard = -1;
     protected int secondCard = -1;
     protected boolean tryAgain;
-    protected boolean endGame;
     protected boolean lock;
 
     public GameLogic(int cardNum){
@@ -43,7 +42,6 @@ public class GameLogic implements Serializable {
         points = 0;
         initializeGame();
         this.score = new HighScore(scoreFile());
-        endGame=true;
     }
     /*
     * method - scoreFile

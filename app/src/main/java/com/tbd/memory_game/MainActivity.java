@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        //Start Game Button
+
         Button startGame = (Button) findViewById(R.id.startButton);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //HighScore button
+
         Button highScoreScreen = (Button) findViewById(R.id.highScoresButton);
         highScoreScreen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(nextScreen);
             }
         });
-        //Setting button
+
         Button setting = (Button) findViewById(R.id.settingButton);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override

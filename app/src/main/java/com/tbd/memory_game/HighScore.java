@@ -84,6 +84,14 @@ public class HighScore implements Serializable {
             System.out.println("No highscores");
         }
     }
+    /*
+    *method: changeHighScore
+    *purpose: Increment highScore by the pointsChange parameter
+    */
+
+    public void changeHighScore(int pointsChange){
+        highScore+=pointsChange;
+    }
 
     /*
     *method: setHighScore

@@ -24,7 +24,7 @@ public class HighScores extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_scores);
-        //Creates spinner for drop down list of highscores.
+
         Spinner spinner = (Spinner)findViewById(R.id.hsOptions);
         items = new String[]{"4 Cards", "6 Cards", "8 Cards" , "10 Cards" , "12 Cards" , "14 Cards"
                 , "16 Cards" , "18 Cards" , "20 Cards"};
@@ -39,8 +39,16 @@ public class HighScores extends AppCompatActivity implements AdapterView.OnItemS
         hs2.setText(score.getScore(1));
         TextView hs3 = (TextView) findViewById(R.id.hsThree);
         hs3.setText(score.getScore(2));
+
+        Button mainMenu = (Button) findViewById(R.id.returnButton);
+        mainMenu.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View arg0){
+                Intent nextScreen = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(nextScreen);
+            }
+        });
     }
-    //Code to set which highscores are being shown.
+
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         HighScore score= new HighScore(items[position]);
         TextView hs1 = (TextView) findViewById(R.id.hsOne);

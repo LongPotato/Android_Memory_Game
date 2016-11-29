@@ -11,6 +11,15 @@
     android:background="@drawable/felt"
     tools:context="com.tbd.memory_game.HighScores">
 
+    <Button
+        android:text="@string/Main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/returnButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title" />
+
     <TextView
         android:text="@string/hs"
         android:layout_width="wrap_content"
@@ -19,6 +28,38 @@
         android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hsTwo"
+        android:layout_alignRight="@+id/hsTwo"
+        android:layout_alignEnd="@+id/hsTwo"
+        android:textColor="@android:color/background_light"
+        android:layout_marginTop="44dp"
+        android:id="@+id/hsThree" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hsOne"
+        android:layout_marginTop="21dp"
+        android:textColor="@android:color/background_light"
+        android:layout_below="@+id/hsOptions"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_light"
+        android:id="@+id/hsTwo"
+        android:layout_below="@+id/hsOne"
+        android:layout_alignLeft="@+id/hsOne"
+        android:layout_alignStart="@+id/hsOne"
+        android:layout_marginTop="35dp" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -29,36 +70,5 @@
         android:layout_below="@+id/title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_light"
-        android:id="@+id/hsTwo"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/hsOne"
-        android:layout_alignStart="@+id/hsOne" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hsOne"
-        android:textColor="@android:color/background_light"
-        android:layout_above="@+id/hsTwo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="11dp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_light"
-        android:id="@+id/hsThree"
-        android:layout_marginTop="29dp"
-        android:layout_alignTop="@+id/hsTwo"
-        android:layout_alignLeft="@+id/hsTwo"
-        android:layout_alignStart="@+id/hsTwo" />
 
 </RelativeLayout>
