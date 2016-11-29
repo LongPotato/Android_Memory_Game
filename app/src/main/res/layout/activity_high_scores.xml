@@ -10,14 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/felt"
     tools:context="com.tbd.memory_game.HighScores">
-    <Button
-        android:text="@string/Main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
-        android:id="@+id/returnButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="@string/hs"
@@ -42,32 +34,33 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/hsTwo"
+        android:textColor="@android:color/background_light"
+        android:layout_marginTop="110dp"
+        android:layout_below="@+id/hsOne"
+        android:layout_alignLeft="@+id/hsOne"
+        android:layout_alignStart="@+id/hsOne" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_light"
+        android:id="@+id/hsOne"
         android:layout_below="@+id/hsOptions"
         android:layout_toLeftOf="@+id/title"
         android:layout_toStartOf="@+id/title"
-        android:textColor="@android:color/background_light"
-        android:layout_marginTop="68dp"
-        android:id="@+id/hsOne" />
+        android:layout_marginTop="57dp" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/returnButton"
+        android:textColor="@android:color/background_light"
+        android:id="@+id/hsThree"
+        android:layout_marginTop="101dp"
+        android:layout_below="@+id/hsTwo"
         android:layout_alignLeft="@+id/hsTwo"
-        android:layout_alignStart="@+id/hsTwo"
-        android:textColor="@android:color/background_light"
-        android:layout_marginBottom="76dp"
-        android:id="@+id/hsThree" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hsTwo"
-        android:textColor="@android:color/background_light"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/hsOne"
-        android:layout_alignStart="@+id/hsOne" />
+        android:layout_alignStart="@+id/hsTwo" />
 
 </RelativeLayout>
